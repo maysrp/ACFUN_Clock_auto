@@ -22,7 +22,6 @@ try:
     ap_list=sta_if.scan()
 except Exception as e:
     ap_list=[]     
-time.sleep(3)
 se="<select name='wifi' class='form-control'>"
 for i in ap_list:
     se=se+"<option value ='%s'>%s</option>" % (bytes.decode(i[0]),bytes.decode(i[0]),)
@@ -84,9 +83,13 @@ class clock:
         gc.collect()    
         url="https://www.acfun.cn/rest/pc-direct/user/userInfo?userId="+str(self.id)
         headers = {'User-Agent':'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Mobile Safari/537.36' }
-        re=urequests.get(url,headers=headers)
-        ca=re.text
-        cc=ujson.loads(ca)
+        try:
+            re=urequests.get(url,headers=headers)
+            ca=re.text
+            cc=ujson.loads(ca)
+        except Exception as e:
+            cc=[]
+            cc['result']=1
         if cc['result']==0:
             self.fan=cc['profile']['followed'].replace('\u4e07','W')
         else:
@@ -117,6 +120,7 @@ def _httpHandlerTestGet(httpClient, httpResponse) :
 	<!DOCTYPE html>
 	<html lang=en>
         <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <link rel="stylesheet" href="/b.css">
         	<meta charset="UTF-8" />
             <title>ACFUN Clock设置</title>
