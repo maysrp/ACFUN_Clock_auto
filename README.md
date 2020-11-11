@@ -21,7 +21,7 @@ ACFUN电子钟自动配网版
 
 ## 上传
 
-上传main.py,config.json,b.css到你的ESP32上
+上传main.py,config.json,start.html,b.css到你的ESP32上
 max7219.py这个库文件也上传到你的esp32上
 
 ## 配置
